@@ -1,6 +1,6 @@
 # claude-plugins-zwijsen
 
-Gedeelde skills/prompts voor AI-coding-tools binnen Zwijsen — werkt met Claude Code, GitHub Copilot en ChatGPT.
+Gedeelde skills/prompts voor AI-coding-tools binnen Zwijsen — werkt met Claude Code, GitHub Copilot en Codex CLI.
 
 ## Structuur
 
@@ -8,13 +8,13 @@ Gedeelde skills/prompts voor AI-coding-tools binnen Zwijsen — werkt met Claude
 core/<naam>/core.md          <- bron van waarheid, hier bewerk je
 claude-code/skills/<naam>/SKILL.md      <- gegenereerd, Claude Code plugin-pad
 copilot/<naam>.prompt.md                <- gegenereerd, Copilot reusable prompt
-chatgpt/<naam>-instructions.md          <- gegenereerd, ChatGPT custom instructions
+codex/<naam>-instructions.md            <- gegenereerd, Codex CLI instructions
 scripts/generate-adapters.js            <- sync-script: core/ -> de drie mappen
 ```
 
 `core/<naam>/core.md` bevat platte, tool-onafhankelijke instructies (frontmatter met `name` + `description`, daarna doel/stappen/voorbeeld). `node scripts/generate-adapters.js` synct dat naar de drie tool-mappen.
 
-**Nooit `claude-code/`, `copilot/` of `chatgpt/` handmatig bewerken** — wijzigingen gaan verloren bij de volgende sync-run. Altijd via `core/<naam>/core.md`.
+**Nooit `claude-code/`, `copilot/` of `codex/` handmatig bewerken** — wijzigingen gaan verloren bij de volgende sync-run. Altijd via `core/<naam>/core.md`.
 
 ## Gebruik als Claude Code plugin
 
@@ -29,15 +29,15 @@ Skills zijn dan beschikbaar als `/claude-plugins-zwijsen:<skill-naam>`. De plugi
 
 Kopieer `copilot/<naam>.prompt.md` naar `.github/prompts/` in het doel-repo. Aanroepen met `/<naam>` in Copilot Chat.
 
-## Gebruik in ChatGPT
+## Gebruik in Codex CLI
 
-Plak inhoud van `chatgpt/<naam>-instructions.md` in de Custom GPT instructions, of upload los als knowledge-bestand.
+Inhoud van `codex/<naam>-instructions.md` los meegeven, of samenvoegen in `AGENTS.md` van het doel-repo (Codex CLI leest dat automatisch, vergelijkbaar met Claude Code's `CLAUDE.md`).
 
 ## Nieuwe skill toevoegen
 
 1. Maak `core/<naam>/core.md` aan (zie `core/commit-message/core.md` als voorbeeld)
 2. Run `node scripts/generate-adapters.js`
-3. Commit alles (`core/`, `claude-code/`, `copilot/`, `chatgpt/`)
+3. Commit alles (`core/`, `claude-code/`, `copilot/`, `codex/`)
 
 ## Vereisten
 

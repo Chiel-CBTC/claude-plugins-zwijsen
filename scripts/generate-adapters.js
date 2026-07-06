@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Sync core/<naam>/core.md naar claude-code/, copilot/ en chatgpt/.
+// Sync core/<naam>/core.md naar claude-code/, copilot/ en codex/.
 // Nooit die mappen handmatig bewerken -- wijzigingen gaan verloren bij volgende run.
 
 const fs = require('fs');
@@ -9,7 +9,7 @@ const root = path.join(__dirname, '..');
 const coreDir = path.join(root, 'core');
 const claudeSkillsDir = path.join(root, 'claude-code', 'skills');
 const copilotDir = path.join(root, 'copilot');
-const chatgptDir = path.join(root, 'chatgpt');
+const codexDir = path.join(root, 'codex');
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -46,9 +46,9 @@ function generateFor(skillName) {
     `<!-- ${meta.description} -->\n\n${body}\n`
   );
 
-  // ChatGPT: plak in Custom GPT instructions of los uploaden
-  fs.mkdirSync(chatgptDir, { recursive: true });
-  fs.writeFileSync(path.join(chatgptDir, `${meta.name}-instructions.md`), `${body}\n`);
+  // Codex CLI: los instructions-bestand, evt. samen met/als AGENTS.md te gebruiken
+  fs.mkdirSync(codexDir, { recursive: true });
+  fs.writeFileSync(path.join(codexDir, `${meta.name}-instructions.md`), `${body}\n`);
 
   console.log(`gesynced: ${skillName}`);
 }
