@@ -1,4 +1,6 @@
-<!-- Gebruik dit wanneer je een commit message moet schrijven voor een code-wijziging. -->
+---
+description: 'Gebruik dit wanneer je een commit message moet schrijven voor een code-wijziging.'
+---
 
 # Commit message schrijven
 

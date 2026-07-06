@@ -1,4 +1,6 @@
-<!-- Gebruik dit wanneer core.md-bestanden in deze repo (claude-plugins-zwijsen) zijn aangepast of een nieuwe skill is toegevoegd onder core/, en de gegenereerde output in claude-code/, copilot/ en codex/ opnieuw gesynct moet worden. -->
+---
+description: 'Gebruik dit wanneer core.md-bestanden in deze repo (claude-plugins-zwijsen) zijn aangepast of een nieuwe skill is toegevoegd onder core/, en de gegenereerde output in claude-code/, copilot/ en codex/ opnieuw gesynct moet worden.'
+---
 
 # Skills syncen naar alle tool-mappen
 

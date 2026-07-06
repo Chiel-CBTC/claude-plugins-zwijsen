@@ -44,10 +44,11 @@ function generateFor(skillName) {
   );
 
   // Copilot reusable prompt file (handmatig kopieren naar .github/prompts/ in doel-repo)
+  // Copilot eist echte YAML-frontmatter -- een HTML-comment wordt niet als description herkend.
   fs.mkdirSync(copilotDir, { recursive: true });
   fs.writeFileSync(
     path.join(copilotDir, `${meta.name}.prompt.md`),
-    `<!-- ${meta.description} -->\n\n${body}\n`
+    `---\ndescription: '${meta.description.replace(/'/g, "''")}'\n---\n\n${body}\n`
   );
 
   // Codex CLI: los instructions-bestand, evt. samen met/als AGENTS.md te gebruiken
