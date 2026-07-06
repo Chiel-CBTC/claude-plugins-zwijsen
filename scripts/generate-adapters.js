@@ -32,11 +32,15 @@ function generateFor(skillName) {
   const { meta, body } = parseFrontmatter(content);
 
   // Claude Code eist dit exacte pad: claude-code/skills/<naam>/SKILL.md
+  // Alle frontmatter-velden uit core.md (bv. disable-model-invocation) gaan 1-op-1 mee.
   const claudeSkillDir = path.join(claudeSkillsDir, skillName);
   fs.mkdirSync(claudeSkillDir, { recursive: true });
+  const frontmatter = Object.entries(meta)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
   fs.writeFileSync(
     path.join(claudeSkillDir, 'SKILL.md'),
-    `---\nname: ${meta.name}\ndescription: ${meta.description}\n---\n\n${body}\n`
+    `---\n${frontmatter}\n---\n\n${body}\n`
   );
 
   // Copilot reusable prompt file (handmatig kopieren naar .github/prompts/ in doel-repo)
