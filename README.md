@@ -2,15 +2,19 @@
 
 Gedeelde skills/prompts voor AI-coding-tools binnen Zwijsen — werkt met Claude Code, GitHub Copilot en ChatGPT.
 
-## Hoe het werkt
+## Structuur
 
-Elke skill heeft één bron van waarheid: `skills/<naam>/core.md`. Dat bestand bevat platte, tool-onafhankelijke instructies (frontmatter met `name` + `description`, daarna doel/stappen/voorbeeld).
+```
+core/<naam>/core.md          <- bron van waarheid, hier bewerk je
+claude-code/skills/<naam>/SKILL.md      <- gegenereerd, Claude Code plugin-pad
+copilot/<naam>.prompt.md                <- gegenereerd, Copilot reusable prompt
+chatgpt/<naam>-instructions.md          <- gegenereerd, ChatGPT custom instructions
+scripts/generate-adapters.js            <- sync-script: core/ -> de drie mappen
+```
 
-Een generate-script zet dat om naar drie kant-en-klare varianten, allemaal naast core.md in dezelfde skill-map:
+`core/<naam>/core.md` bevat platte, tool-onafhankelijke instructies (frontmatter met `name` + `description`, daarna doel/stappen/voorbeeld). `node scripts/generate-adapters.js` synct dat naar de drie tool-mappen.
 
-- `skills/<naam>/SKILL.md` — Claude Code plugin-pad (verplicht exact hier), werkt direct na installatie
-- `skills/<naam>/<naam>.prompt.md` — Copilot reusable prompt, kopieer naar `.github/prompts/` in het doel-repo, aanroepen met `/<naam>` in Copilot Chat
-- `skills/<naam>/chatgpt-instructions.md` — plak in Custom GPT instructions of los uploaden
+**Nooit `claude-code/`, `copilot/` of `chatgpt/` handmatig bewerken** — wijzigingen gaan verloren bij de volgende sync-run. Altijd via `core/<naam>/core.md`.
 
 ## Gebruik als Claude Code plugin
 
@@ -19,15 +23,21 @@ Een generate-script zet dat om naar drie kant-en-klare varianten, allemaal naast
 /plugin install claude-plugins-zwijsen@claude-plugins-zwijsen
 ```
 
-Skills zijn dan beschikbaar als `/claude-plugins-zwijsen:<skill-naam>`. Update door de marketplace opnieuw te syncen (`/plugin marketplace add` nogmaals, of via het plugin-menu).
+Skills zijn dan beschikbaar als `/claude-plugins-zwijsen:<skill-naam>`. De plugin wordt geladen uit de submap `claude-code/` via `git-subdir` in `.claude-plugin/marketplace.json`.
+
+## Gebruik in Copilot
+
+Kopieer `copilot/<naam>.prompt.md` naar `.github/prompts/` in het doel-repo. Aanroepen met `/<naam>` in Copilot Chat.
+
+## Gebruik in ChatGPT
+
+Plak inhoud van `chatgpt/<naam>-instructions.md` in de Custom GPT instructions, of upload los als knowledge-bestand.
 
 ## Nieuwe skill toevoegen
 
-1. Maak `skills/<naam>/core.md` aan (zie `skills/commit-message/core.md` als voorbeeld)
+1. Maak `core/<naam>/core.md` aan (zie `core/commit-message/core.md` als voorbeeld)
 2. Run `node scripts/generate-adapters.js`
-3. Commit alles (core.md + gegenereerde bestanden)
-
-**Nooit de gegenereerde bestanden handmatig bewerken** — wijzigingen gaan verloren bij de volgende generate-run. Altijd via `core.md`.
+3. Commit alles (`core/`, `claude-code/`, `copilot/`, `chatgpt/`)
 
 ## Vereisten
 

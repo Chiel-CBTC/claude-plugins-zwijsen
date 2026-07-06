@@ -1,0 +1,20 @@
+{
+  "$schema": "https://cdn.anthropic.com/schemas/claude-code/marketplace-schema-1.0.0.json",
+  "name": "claude-plugins-zwijsen",
+  "owner": {
+    "name": "Zwijsen"
+  },
+  "plugins": [
+    {
+      "name": "claude-plugins-zwijsen",
+      "description": "Gedeelde skills voor Zwijsen — generiek geschreven zodat ze ook als Copilot/ChatGPT prompts bruikbaar zijn",
+      "author": { "name": "Zwijsen" },
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Chiel-CBTC/claude-plugins-zwijsen.git",
+        "path": "claude-code",
+        "ref": "main"
+      }
+    }
+  ]
+}
