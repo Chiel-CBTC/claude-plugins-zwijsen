@@ -1,0 +1,6 @@
+{
+  "name": "claude-plugins-zwijsen",
+  "description": "Gedeelde skills voor Zwijsen — generiek geschreven zodat ze ook als Copilot/ChatGPT prompts bruikbaar zijn",
+  "version": "0.1.0",
+  "author": { "name": "Zwijsen" }
+}

@@ -23,28 +23,25 @@ function parseFrontmatter(content) {
 }
 
 function generateFor(skillName) {
-  const corePath = path.join(skillsDir, skillName, 'core.md');
+  const skillDir = path.join(skillsDir, skillName);
+  const corePath = path.join(skillDir, 'core.md');
   const content = fs.readFileSync(corePath, 'utf8');
   const { meta, body } = parseFrontmatter(content);
-  const adaptersDir = path.join(skillsDir, skillName, 'adapters');
 
-  const claudeDir = path.join(adaptersDir, 'claude-code');
-  fs.mkdirSync(claudeDir, { recursive: true });
+  // Claude Code eist dit exacte pad: skills/<naam>/SKILL.md
   fs.writeFileSync(
-    path.join(claudeDir, 'SKILL.md'),
+    path.join(skillDir, 'SKILL.md'),
     `---\nname: ${meta.name}\ndescription: ${meta.description}\n---\n\n${body}\n`
   );
 
-  const copilotDir = path.join(adaptersDir, 'copilot');
-  fs.mkdirSync(copilotDir, { recursive: true });
+  // Copilot reusable prompt file (handmatig kopieren naar .github/prompts/)
   fs.writeFileSync(
-    path.join(copilotDir, `${meta.name}.prompt.md`),
+    path.join(skillDir, `${meta.name}.prompt.md`),
     `<!-- ${meta.description} -->\n\n${body}\n`
   );
 
-  const chatgptDir = path.join(adaptersDir, 'chatgpt');
-  fs.mkdirSync(chatgptDir, { recursive: true });
-  fs.writeFileSync(path.join(chatgptDir, 'instructions.md'), `${body}\n`);
+  // ChatGPT: plak in Custom GPT instructions of los uploaden
+  fs.writeFileSync(path.join(skillDir, 'chatgpt-instructions.md'), `${body}\n`);
 
   console.log(`gegenereerd: ${skillName}`);
 }
