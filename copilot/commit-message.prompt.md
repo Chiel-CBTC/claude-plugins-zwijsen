@@ -1,4 +1,4 @@
-<!-- Gebruik dit wanneer je een commit message moet schrijven voor een code-wijziging. Volgt Conventional Commits formaat, kort en duidelijk. -->
+<!-- Gebruik dit wanneer je een commit message moet schrijven voor een code-wijziging. -->
 
 # Commit message schrijven
 

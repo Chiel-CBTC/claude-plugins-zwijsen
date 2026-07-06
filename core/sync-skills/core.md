@@ -17,11 +17,14 @@ Na het toevoegen of wijzigen van een `core/<naam>/core.md` bestand in deze repo,
 2. Ga naar de root van deze repo (waar `scripts/generate-adapters.js` staat).
 3. Run `node scripts/generate-adapters.js`.
 4. Bekijk de diff (`git status` / `git diff`) — controleer of alleen `claude-code/`, `copilot/` en `codex/` zijn gewijzigd, nooit `core/` zelf.
-5. Commit alle wijzigingen samen (core.md + gegenereerde output in 1 commit).
-6. Push.
+5. **Vraag de gebruiker expliciet om toestemming voordat je commit** — nooit zelf committen zonder die bevestiging, ook niet als eerdere commits in dezelfde sessie al zijn goedgekeurd.
+6. Na akkoord: commit alle wijzigingen samen (core.md + gegenereerde output in 1 commit).
+7. **Vraag de gebruiker expliciet om toestemming voordat je pusht** — los van de toestemming voor de commit, dit is een aparte vraag.
+8. Na akkoord: push.
 
 ## Belangrijk
 
 - Bewerk nooit bestanden in `claude-code/`, `copilot/` of `codex/` direct — die worden overschreven bij de volgende sync.
 - Elke nieuwe skill heeft minimaal `core/<naam>/core.md` nodig met frontmatter (`name`, `description`) — zonder geldige frontmatter faalt het script met een duidelijke foutmelding.
 - Extra frontmatter-velden (zoals `disable-model-invocation`) worden 1-op-1 doorgezet naar `SKILL.md` — alleen relevant voor de Claude Code-variant, Copilot/Codex-output negeert dit.
+- Commit en push zijn nooit impliciet — vraag altijd, ongeacht wat eerder in de sessie is goedgekeurd.
