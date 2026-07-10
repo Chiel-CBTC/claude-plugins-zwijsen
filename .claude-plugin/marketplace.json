@@ -8,14 +8,9 @@
   "plugins": [
     {
       "name": "claude-plugins-zwijsen",
-      "description": "Gedeelde skills voor Zwijsen — generiek geschreven zodat ze ook als Copilot/Codex prompts bruikbaar zijn",
+      "description": "Gedeelde skills voor Zwijsen — Azure DevOps workflows",
       "author": { "name": "Zwijsen" },
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/Chiel-CBTC/claude-plugins-zwijsen.git",
-        "path": "claude-code",
-        "ref": "main"
-      }
+      "source": "./"
     }
   ]
 }

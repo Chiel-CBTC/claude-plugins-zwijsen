@@ -1,0 +1,8 @@
+{
+  "name": "claude-plugins-zwijsen",
+  "description": "Gedeelde skills voor Zwijsen — Azure DevOps workflows",
+  "author": {
+    "name": "Chiel Bleumink",
+    "email": "chiel.bleumink@gmail.com"
+  }
+}
