@@ -43,6 +43,10 @@ Project is standaard `Zwitch` — geef dit altijd expliciet mee als `project`-pa
    - `"duplicate of"` als het exact hetzelfde, nog openstaande probleem betreft
 6. **Haal het aangemaakte item opnieuw op** (`wit_get_work_item`) en verifieer dat AreaPath, tags en links kloppen.
 7. **Meld de gebruiker** het werkitem-ID en een klikbare link: `https://dev.azure.com/zwijsenonline/{projectGuid}/_workitems/edit/{id}` (projectGuid voor Zwitch: `538f95b0-4b81-42f5-abe0-b6f470d61edc`, anders ophalen via de work item respons).
+8. **Child tasks toevoegen (optioneel, alleen op verzoek)**: gebruik `wit_add_child_work_items` met `parentId` = de zojuist aangemaakte bug.
+   - **Let op:** deze tool erft AreaPath en IterationPath **niet** automatisch over van de parent — nieuwe child items komen standaard op het root-iteration (`Zwitch`) en root-area-path (`Zwitch`) terecht, ook al staat de parent op een specifieke sprint/team. Zonder correctie verschijnen de taken daardoor niet op het (sprint)bord van het team.
+   - Geef daarom expliciet `areaPath` en `iterationPath` mee per item (gelijk aan de parent), óf haal na het aanmaken zowel de parent als de nieuwe children op (`wit_get_work_items_batch_by_ids` met `System.AreaPath`, `System.IterationPath`) en trek verschillen recht met `wit_update_work_items_batch`.
+   - Verifieer dit altijd, ook als de gebruiker niet expliciet meldt dat items "niet op het bord" verschijnen.
 
 ## Veldopbouw
 
