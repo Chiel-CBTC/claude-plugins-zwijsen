@@ -34,6 +34,19 @@ Standaard `Zwitch` — geef dit altijd expliciet mee als `project`-parameter bij
 
 Noem je een ander werkitem (PBI/bug/task) in een comment, description, of ander veld — voeg dan altijd de volledige URL toe: `https://dev.azure.com/zwijsenonline/538f95b0-4b81-42f5-abe0-b6f470d61edc/_workitems/edit/{id}`. En leg de relatie ook daadwerkelijk vast via `wit_work_items_link` (meestal `"related"`) — een vermelding in tekst is geen vervanging voor een echte link.
 
+## Personen taggen (@mention) in tekst
+
+Wil de gebruiker iemand taggen in een comment/description ("tag Niels Snoeck", "zet hem als @mention") — gebruik altijd `@[Voornaam Achternaam]` als trigger-notatie in je eigen aantekeningen/uitleg, maar schrijf in het veld zelf de echte ADO-mention-markup:
+
+```
+<a href="#" data-vss-mention="version:2.0,{identity-GUID}">@Voornaam Achternaam</a>
+```
+
+Twee valkuilen, allebei al een keer misgegaan:
+
+1. **Veldformaat moet `Html` zijn.** Staat het veld op `Markdown` (check `multilineFieldsFormat`), dan rendert de anchor niet als mention-chip maar als losse tekst/kapotte HTML. Zet in dezelfde `wit_update_work_item`-call ook een update op pad `/multilineFieldsFormat/{FieldName}` met waarde `Html`, én herschrijf de rest van de bestaande inhoud naar echte HTML-tags (`<p>`, `<ul><li>`, `<strong>`, `<code>`) — markdown-syntax (`**vet**`, `- lijst`) wordt na de formaatwissel niet meer geïnterpreteerd en verschijnt als letterlijke tekens.
+2. **De identity-GUID moet je opzoeken, niet raden.** De ADO-identities/graph-REST-endpoints (`vssps.dev.azure.com/.../identities`, `.../graph/users`) geven met de opgeslagen git-PAT een 401 (onvoldoende scope). Werkende omweg: haal 'm uit een plek waar die persoon al ergens als identity-object voorkomt binnen scope die wél werkt, bv. `GET .../git/repositories/{repo}/pullrequests/{id}/reviewers` (zelfde auth als PR's aanmaken) — daar staat `id` en `uniqueName` per reviewer. Of check `AssignedTo`/`ChangedBy` op een werkitem waar die persoon al in voorkomt.
+
 ## Veelgemaakte fout
 
 Een update-call bouwen op de eigen onthouden tekst uit het gesprek, zonder opnieuw op te halen. Als de gebruiker tussentijds handmatig iets in ADO heeft aangepast, overschrijft de volgende update dat stilletjes. Altijd `wit_get_work_item` vóór `wit_update_work_item`.
